@@ -1,9 +1,11 @@
 # ObjectBox Example
 
 Project showing usage of [ObjectBox](http://greenrobot.org/objectbox/).
+
 Application receives push notifications and shows them on list. Notifications can be:
-* removed
-* marked as read
+- removed
+- marked as read
+
 Notifications on list are refreshed automatically. 
 
 ## Setup
@@ -14,7 +16,9 @@ Than download google-services.json and put in app folder.
 To send notifications:
 
 https://fcm.googleapis.com/fcm/send
+
 Content-Type:application/json
+
 Authorization:key=AIzaSyZ-1u...0GBYzPu7Udno5aA
 
 ```
