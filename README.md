@@ -16,12 +16,10 @@ Than download google-services.json and put in app folder.
 To send notifications:
 
 https://fcm.googleapis.com/fcm/send
-
+```
 Content-Type:application/json
-
 Authorization:key=AIzaSyZ-1u...0GBYzPu7Udno5aA
 
-```
 {
   "to": "/topics/notifications",
   "data": {
