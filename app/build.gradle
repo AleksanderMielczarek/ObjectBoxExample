@@ -1,0 +1,75 @@
+apply plugin: 'com.android.application'
+apply plugin: 'io.objectbox'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion sdkVersion
+    buildToolsVersion buildToolsVersionVersion
+    defaultConfig {
+        applicationId "com.github.aleksandermielczarek.objectboxexample"
+        minSdkVersion minSdkVersionVersion
+        targetSdkVersion sdkVersion
+        versionCode versionMajor * 1000000 + versionMinor * 10000 + versionFix * 100
+        versionName "$versionMajor.$versionMinor.$versionFix"
+        setProperty("archivesBaseName", "ObjectBoxExample-$versionName")
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    dataBinding {
+        enabled = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    //test
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$espressoCoreVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile "junit:junit:$junitVersion"
+
+    //support
+    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile "com.android.support:design:$supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
+
+    //firebase
+    compile "com.google.firebase:firebase-core:$firebaseVersion"
+    compile "com.google.firebase:firebase-messaging:$firebaseVersion"
+
+    //dagger
+    compile "com.google.dagger:dagger:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    compile "com.github.AleksanderMielczarek.Napkin:napkin:$napkinVersion@aar"
+    compile "com.github.AleksanderMielczarek.Napkin:module:$napkinVersion@aar"
+    compile "com.github.AleksanderMielczarek.Napkin:scope:$napkinVersion"
+    compile "com.github.AleksanderMielczarek.Napkin:qualifier:$napkinVersion"
+
+    //rx
+    compile "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
+    compile "io.reactivex.rxjava2:rxjava:$rxjavaVersion"
+
+    //objectbox
+    compile "io.objectbox:objectbox-android:$objectboxVersion"
+    compile "io.objectbox:objectbox-rxjava:$objectboxRxVersion"
+
+    //utils
+    compile "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:$bindingcollectionaderVersion"
+    compile "me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:$bindingcollectionaderVersion"
+    compile "com.jakewharton.threetenabp:threetenabp:$threetenabpVersion"
+    provided "com.google.auto.factory:auto-factory:$autoFactoryVersion"
+    annotationProcessor "com.google.auto.factory:auto-factory:$autoFactoryVersion"
+}
+
+apply plugin: 'com.google.gms.google-services'

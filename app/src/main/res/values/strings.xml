@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ObjectBox Example</string>
+    <string name="error">Error</string>
+    <string name="new_notifications">New notifications: %1$d</string>
+    <string name="default_title">ObjectBox Example</string>
+    <string name="default_body">Project showing usage of ObjectBox</string>
+</resources>

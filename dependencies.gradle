@@ -1,0 +1,30 @@
+ext {
+    versionMajor = 1
+    versionMinor = 0
+    versionFix = 0
+
+    minSdkVersionVersion = 16
+    sdkVersion = 25
+    buildToolsVersionVersion = "25.0.2"
+
+    toolsBuildGradleVersion = '2.3.0'
+    gradleRetrolambdaVersion = '3.6.0'
+    gradleVersionsPluginVersion = '0.14.0'
+    androidMavenGradlePluginVersion = '1.5'
+    googleServicesPluginVersion = '3.0.0'
+
+    objectboxVersion = '0.9.9'
+
+    espressoCoreVersion = '2.2.2'
+    junitVersion = '4.12'
+    supportLibraryVersion = '25.2.0'
+    daggerVersion = '2.9'
+    napkinVersion = '0.7.0'
+    rxandroidVersion = '2.0.1'
+    rxjavaVersion = '2.0.7'
+    autoFactoryVersion = '1.0-beta3'
+    firebaseVersion = '10.2.0'
+    bindingcollectionaderVersion = '2.0.1'
+    objectboxRxVersion = '0.9.8'
+    threetenabpVersion = '1.0.5'
+}
