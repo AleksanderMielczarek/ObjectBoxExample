@@ -50,7 +50,7 @@ public final class ViewModelDiff<T> {
         return new ViewModelIdEqualsCallback<>(modelId, viewModelToModel);
     }
 
-    private static class IdEqualsCallback<M, ID> implements DiffObservableList.Callback<M> {
+    private static final class IdEqualsCallback<M, ID> implements DiffObservableList.Callback<M> {
 
         private final Function<M, ID> modelId;
 

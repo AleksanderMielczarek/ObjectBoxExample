@@ -44,29 +44,13 @@ public class NotificationsActivity extends AppCompatActivity implements Notifica
         binding.setViewModel(notificationsViewModel);
 
         setSupportActionBar(binding.toolbar);
-        ItemTouchHelper notificationSwipeDelete = getNotificationSwipeDelete();
+        ItemTouchHelper notificationSwipeDelete = new ItemTouchHelper(new NotificationSwipeDelete(notificationsViewModel));
         notificationSwipeDelete.attachToRecyclerView(binding.notifications);
 
         notificationsViewModel.setViewModelListener(this);
         notificationsViewModel.registerForNotifications();
         notificationsViewModel.loadNotifications();
         notificationsViewModel.countUnreadNotifications();
-    }
-
-    private ItemTouchHelper getNotificationSwipeDelete() {
-        return new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-
-            @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                int position = viewHolder.getAdapterPosition();
-                notificationsViewModel.removeNotification(position);
-            }
-        });
     }
 
     @Override
@@ -79,4 +63,26 @@ public class NotificationsActivity extends AppCompatActivity implements Notifica
     public void showError(Throwable throwable) {
         Snackbar.make(binding.notifications, R.string.error, Snackbar.LENGTH_LONG).show();
     }
+
+    private static final class NotificationSwipeDelete extends ItemTouchHelper.SimpleCallback {
+
+        private final NotificationsViewModel notificationsViewModel;
+
+        NotificationSwipeDelete(NotificationsViewModel notificationsViewModel) {
+            super(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT);
+            this.notificationsViewModel = notificationsViewModel;
+        }
+
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            int position = viewHolder.getAdapterPosition();
+            notificationsViewModel.removeNotification(position);
+        }
+    }
+
 }
