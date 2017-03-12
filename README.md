@@ -8,6 +8,8 @@ Application receives push notifications and shows them on list. Notifications ca
 
 Notifications on list are refreshed automatically. 
 
+![Screenshot](images/screenshot.png)
+
 ## Setup
 
 In order to setup project you have to create new Firebase project with applicationId of this one.
