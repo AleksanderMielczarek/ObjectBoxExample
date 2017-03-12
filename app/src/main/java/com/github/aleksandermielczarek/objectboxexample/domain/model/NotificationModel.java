@@ -45,7 +45,7 @@ public class NotificationModel {
                 .flatMap(notificationRepository::save);
     }
 
-    public Completable deleteNotification(Notification notification) {
+    public Single<Notification> deleteNotification(Notification notification) {
         return notificationRepository.delete(notification);
     }
 
@@ -73,7 +73,7 @@ public class NotificationModel {
     }
 
     public Single<List<Notification>> removeAll() {
-        return notificationRepository.removeAll();
+        return notificationRepository.deleteAll();
     }
 
 }

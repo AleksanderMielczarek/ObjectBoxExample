@@ -27,6 +27,11 @@ public class NotificationRepository {
         notificationBox = boxStore.boxFor(Notification.class);
     }
 
+    public Observable<List<Notification>> findAll() {
+        return RxQuery.observable(notificationBox.query()
+                .build());
+    }
+
     public Observable<List<Notification>> findAllSortedByDateDesc() {
         return RxQuery.observable(notificationBox.query()
                 .orderDesc(Notification_.date)
@@ -47,13 +52,19 @@ public class NotificationRepository {
         });
     }
 
-    public Completable delete(Notification entity) {
-        return Completable.fromAction(() -> notificationBox.remove(entity));
+    public Single<Notification> delete(Notification entity) {
+        return Completable.fromAction(() -> notificationBox.remove(entity))
+                .andThen(Single.just(entity));
     }
 
-    public Single<List<Notification>> removeAll() {
+    public Single<List<Notification>> delete(List<Notification> entities) {
+        return Completable.fromAction(() -> notificationBox.remove(entities))
+                .andThen(Single.just(entities));
+    }
+
+    public Single<List<Notification>> deleteAll() {
         return Single.fromCallable(notificationBox::getAll)
-                .doOnSuccess(notifications -> notificationBox.removeAll());
+                .flatMap(this::delete);
     }
 
     public Observable<Integer> count() {
