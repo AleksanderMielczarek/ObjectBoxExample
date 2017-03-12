@@ -34,8 +34,7 @@ public class NotificationViewModel {
         disposables.add(notificationModel.deleteNotification(notification.get())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> {
-                }, viewModelListener::showError));
+                .subscribe(() -> viewModelListener.showNotificationRemoved(notification.get()), viewModelListener::showError));
     }
 
     public void read() {

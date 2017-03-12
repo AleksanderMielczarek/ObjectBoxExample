@@ -14,6 +14,7 @@ import com.github.aleksandermielczarek.napkin.module.NapkinActivityModule;
 import com.github.aleksandermielczarek.objectboxexample.R;
 import com.github.aleksandermielczarek.objectboxexample.component.AppComponent;
 import com.github.aleksandermielczarek.objectboxexample.databinding.ActivityNotificationsBinding;
+import com.github.aleksandermielczarek.objectboxexample.domain.data.Notification;
 
 import javax.inject.Inject;
 
@@ -62,6 +63,13 @@ public class NotificationsActivity extends AppCompatActivity implements Notifica
     @Override
     public void showError(Throwable throwable) {
         Snackbar.make(binding.notifications, R.string.error, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showNotificationRemoved(Notification notification) {
+        Snackbar.make(binding.notifications, R.string.notification_removed, Snackbar.LENGTH_LONG)
+                .setAction(R.string.undo_notification_removed, view -> notificationsViewModel.undoNotificationRemoved(notification))
+                .show();
     }
 
     private static final class NotificationSwipeDelete extends ItemTouchHelper.SimpleCallback {

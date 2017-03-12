@@ -4,4 +4,6 @@
     <string name="new_notifications">New notifications: %1$d</string>
     <string name="default_title">ObjectBox Example</string>
     <string name="default_body">Project showing usage of ObjectBox</string>
+    <string name="notification_removed">Notification has been removed</string>
+    <string name="undo_notification_removed">Undo</string>
 </resources>

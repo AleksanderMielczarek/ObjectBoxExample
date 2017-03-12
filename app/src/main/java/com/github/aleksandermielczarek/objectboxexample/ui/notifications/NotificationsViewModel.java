@@ -66,6 +66,14 @@ public class NotificationsViewModel {
                 }, viewModelListener::showError));
     }
 
+    public void undoNotificationRemoved(Notification notification) {
+        disposables.add(notificationModel.addNotification(notification)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                }, viewModelListener::showError));
+    }
+
     public void removeNotification(int position) {
         notifications.get(position).remove();
     }
@@ -77,5 +85,7 @@ public class NotificationsViewModel {
     public interface NotificationsViewModelListener {
 
         void showError(Throwable throwable);
+
+        void showNotificationRemoved(Notification notification);
     }
 }
