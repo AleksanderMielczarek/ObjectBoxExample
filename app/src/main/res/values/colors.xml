@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorNotificationRead">#757575</color>
     <color name="colorNotificationNotRead">#000000</color>
+    <color name="colorMenuIcon">#ffffff</color>
 </resources>

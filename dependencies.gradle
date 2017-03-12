@@ -27,4 +27,5 @@ ext {
     bindingcollectionaderVersion = '2.0.1'
     objectboxRxVersion = '0.9.8'
     threetenabpVersion = '1.0.5'
+    androidannotationsVersion = '4.2.0'
 }

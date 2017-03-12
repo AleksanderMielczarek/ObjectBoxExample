@@ -5,5 +5,8 @@
     <string name="default_title">ObjectBox Example</string>
     <string name="default_body">Project showing usage of ObjectBox</string>
     <string name="notification_removed">Notification has been removed</string>
+    \<string name="notifications_removed">Notifications have been removed</string>
     <string name="undo_notification_removed">Undo</string>
+    <string name="menu_notifications_read_all">Read all</string>
+    <string name="menu_notifications_remove_all">Remove all</string>
 </resources>

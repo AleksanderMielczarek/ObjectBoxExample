@@ -40,8 +40,26 @@ public class NotificationRepository {
         });
     }
 
+    public Single<List<Notification>> save(List<Notification> entities) {
+        return Single.fromCallable(() -> {
+            notificationBox.put(entities);
+            return entities;
+        });
+    }
+
     public Completable delete(Notification entity) {
         return Completable.fromAction(() -> notificationBox.remove(entity));
+    }
+
+    public Single<List<Notification>> removeAll() {
+        return Single.fromCallable(notificationBox::getAll)
+                .doOnSuccess(notifications -> notificationBox.removeAll());
+    }
+
+    public Observable<Integer> count() {
+        return RxQuery.observable(notificationBox.query()
+                .build())
+                .map(List::size);
     }
 
     public Observable<Integer> countNotReadNotifications() {

@@ -8,6 +8,8 @@ import com.github.aleksandermielczarek.objectboxexample.domain.data.Notification
 import com.github.aleksandermielczarek.objectboxexample.domain.model.NotificationModel;
 import com.github.aleksandermielczarek.objectboxexample.ui.util.ViewModelDiff;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -51,10 +53,18 @@ public class NotificationsViewModel {
                 .subscribe(ViewModelDiff::updateList, viewModelListener::showError));
     }
 
+    public void countNotifications() {
+        disposables.add(notificationModel.countNotifications()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(viewModelListener::updateDeleteAllVisibility, viewModelListener::showError));
+    }
+
     public void countUnreadNotifications() {
         disposables.add(notificationModel.countUnreadNotifications()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(viewModelListener::updateReadAllVisibility)
                 .subscribe(unreadNotifications::set, viewModelListener::showError));
     }
 
@@ -74,6 +84,29 @@ public class NotificationsViewModel {
                 }, viewModelListener::showError));
     }
 
+    public void readAll() {
+        disposables.add(notificationModel.readAll()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                }, viewModelListener::showError));
+    }
+
+    public void removeAll() {
+        disposables.add(notificationModel.removeAll()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(viewModelListener::showNotificationsRemoved, viewModelListener::showError));
+    }
+
+    public void undoNotificationsRemoved(List<Notification> notifications) {
+        disposables.add(notificationModel.addNotifications(notifications)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                }, viewModelListener::showError));
+    }
+
     public void removeNotification(int position) {
         notifications.get(position).remove();
     }
@@ -87,5 +120,11 @@ public class NotificationsViewModel {
         void showError(Throwable throwable);
 
         void showNotificationRemoved(Notification notification);
+
+        void showNotificationsRemoved(List<Notification> notifications);
+
+        void updateDeleteAllVisibility(int notifications);
+
+        void updateReadAllVisibility(int unreadNotifications);
     }
 }

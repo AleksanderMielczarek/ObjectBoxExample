@@ -35,6 +35,10 @@ public class NotificationModel {
         return notificationRepository.countNotReadNotifications();
     }
 
+    public Observable<Integer> countNotifications() {
+        return notificationRepository.count();
+    }
+
     public Single<Notification> readNotification(Notification notification) {
         return Single.just(notification)
                 .doOnSuccess(notification_ -> notification_.setRead(true))
@@ -50,7 +54,26 @@ public class NotificationModel {
                 .toCompletable();
     }
 
+    public Completable addNotifications(List<Notification> notifications) {
+        return notificationRepository.save(notifications)
+                .toCompletable();
+    }
+
     public Completable registerForNotifications() {
         return Completable.fromAction(() -> FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_NOTIFICATIONS));
     }
+
+    public Completable readAll() {
+        return getNotifications()
+                .flatMapSingle(notifications -> Observable.fromIterable(notifications)
+                        .doOnNext(notification -> notification.setRead(true))
+                        .toList())
+                .flatMapSingle(notificationRepository::save)
+                .ignoreElements();
+    }
+
+    public Single<List<Notification>> removeAll() {
+        return notificationRepository.removeAll();
+    }
+
 }
