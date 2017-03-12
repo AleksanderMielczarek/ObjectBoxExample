@@ -86,4 +86,23 @@ public class Notification {
     public boolean getRead() {
         return read;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Notification that = (Notification) o;
+
+        if (id != that.id) return false;
+        return read == that.read;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (read ? 1 : 0);
+        return result;
+    }
 }

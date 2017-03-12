@@ -1,16 +1,15 @@
 package com.github.aleksandermielczarek.objectboxexample.ui.notifications;
 
 import android.databinding.ObservableInt;
-import android.support.v4.util.Pair;
-import android.support.v7.util.DiffUtil;
 
 import com.github.aleksandermielczarek.objectboxexample.BR;
 import com.github.aleksandermielczarek.objectboxexample.R;
+import com.github.aleksandermielczarek.objectboxexample.domain.data.Notification;
 import com.github.aleksandermielczarek.objectboxexample.domain.model.NotificationModel;
+import com.github.aleksandermielczarek.objectboxexample.ui.util.ViewModelDiff;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -23,17 +22,7 @@ import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList;
 
 public class NotificationsViewModel {
 
-    public final DiffObservableList<NotificationViewModel> notifications = new DiffObservableList<>(new DiffObservableList.Callback<NotificationViewModel>() {
-        @Override
-        public boolean areItemsTheSame(NotificationViewModel notificationViewModel, NotificationViewModel notificationViewModel2) {
-            return notificationViewModel.notification.get().getId() == notificationViewModel2.notification.get().getId();
-        }
-
-        @Override
-        public boolean areContentsTheSame(NotificationViewModel notificationViewModel, NotificationViewModel notificationViewModel2) {
-            return notificationViewModel.notification.get().isRead() == notificationViewModel2.notification.get().isRead();
-        }
-    });
+    public final DiffObservableList<NotificationViewModel> notifications = new DiffObservableList<>(ViewModelDiff.viewModelIdEqualsCallback(Notification::getId, notificationViewModel -> notificationViewModel.notification.get()));
     public final ItemBinding<NotificationViewModel> notificationItemBinding = ItemBinding.of(BR.viewModel, R.layout.item_notification);
     public final ObservableInt unreadNotifications = new ObservableInt();
 
@@ -55,16 +44,11 @@ public class NotificationsViewModel {
 
     public void loadNotifications() {
         disposables.add(notificationModel.getNotifications()
-                .flatMapSingle(notifications -> Observable.fromIterable(notifications)
-                        .map(notification -> viewModelFactory.create(notification, disposables, viewModelListener))
-                        .toList())
-                .map(newNotifications -> {
-                    DiffUtil.DiffResult diffResult = notifications.calculateDiff(newNotifications);
-                    return Pair.create(newNotifications, diffResult);
-                })
+                .flatMapSingle(ViewModelDiff.modelsToViewModels(notification -> viewModelFactory.create(notification, disposables, viewModelListener)))
+                .map(ViewModelDiff.calculateViewModelsDiff(notifications))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(result -> notifications.update(result.first, result.second), viewModelListener::showError));
+                .subscribe(ViewModelDiff::updateList, viewModelListener::showError));
     }
 
     public void countUnreadNotifications() {
