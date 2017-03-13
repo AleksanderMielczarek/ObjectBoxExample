@@ -54,12 +54,15 @@ public class NotificationRepository {
 
     public Single<Notification> delete(Notification entity) {
         return Completable.fromAction(() -> notificationBox.remove(entity))
+                .doOnComplete(() -> entity.setId(0))
                 .andThen(Single.just(entity));
     }
 
     public Single<List<Notification>> delete(List<Notification> entities) {
         return Completable.fromAction(() -> notificationBox.remove(entities))
-                .andThen(Single.just(entities));
+                .andThen(Observable.fromIterable(entities))
+                .doOnNext(entity -> entity.setId(0))
+                .toList();
     }
 
     public Single<List<Notification>> deleteAll() {
