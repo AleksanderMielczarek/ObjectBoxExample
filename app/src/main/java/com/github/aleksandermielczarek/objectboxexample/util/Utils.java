@@ -1,4 +1,4 @@
-package com.github.aleksandermielczarek.objectboxexample.ui.util;
+package com.github.aleksandermielczarek.objectboxexample.util;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

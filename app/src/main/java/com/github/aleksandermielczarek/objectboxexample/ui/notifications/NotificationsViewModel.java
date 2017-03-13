@@ -6,7 +6,7 @@ import com.github.aleksandermielczarek.objectboxexample.BR;
 import com.github.aleksandermielczarek.objectboxexample.R;
 import com.github.aleksandermielczarek.objectboxexample.domain.data.Notification;
 import com.github.aleksandermielczarek.objectboxexample.domain.model.NotificationModel;
-import com.github.aleksandermielczarek.objectboxexample.ui.util.ViewModelDiff;
+import com.github.aleksandermielczarek.objectboxexample.util.ViewModelDiff;
 
 import java.util.List;
 

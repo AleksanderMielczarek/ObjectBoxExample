@@ -17,7 +17,7 @@ import com.github.aleksandermielczarek.objectboxexample.R;
 import com.github.aleksandermielczarek.objectboxexample.component.AppComponent;
 import com.github.aleksandermielczarek.objectboxexample.databinding.ActivityNotificationsBinding;
 import com.github.aleksandermielczarek.objectboxexample.domain.data.Notification;
-import com.github.aleksandermielczarek.objectboxexample.ui.util.Utils;
+import com.github.aleksandermielczarek.objectboxexample.util.Utils;
 import com.google.firebase.crash.FirebaseCrash;
 
 import org.androidannotations.annotations.EActivity;
