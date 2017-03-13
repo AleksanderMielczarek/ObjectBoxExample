@@ -46,6 +46,7 @@ dependencies {
 
     //firebase
     compile "com.google.firebase:firebase-core:$firebaseVersion"
+    compile "com.google.firebase:firebase-crash:$firebaseVersion"
     compile "com.google.firebase:firebase-messaging:$firebaseVersion"
 
     //dagger

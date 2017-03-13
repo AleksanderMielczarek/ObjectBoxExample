@@ -18,6 +18,7 @@ import com.github.aleksandermielczarek.objectboxexample.component.AppComponent;
 import com.github.aleksandermielczarek.objectboxexample.databinding.ActivityNotificationsBinding;
 import com.github.aleksandermielczarek.objectboxexample.domain.data.Notification;
 import com.github.aleksandermielczarek.objectboxexample.ui.util.Utils;
+import com.google.firebase.crash.FirebaseCrash;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
@@ -98,6 +99,7 @@ public class NotificationsActivity extends AppCompatActivity implements Notifica
     @Override
     public void showError(Throwable throwable) {
         Snackbar.make(binding.notifications, R.string.error, Snackbar.LENGTH_LONG).show();
+        FirebaseCrash.report(throwable);
     }
 
     @Override
