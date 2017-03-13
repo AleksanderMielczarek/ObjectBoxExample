@@ -1,6 +1,6 @@
 # ObjectBox Example
 
-Project showing usage of [ObjectBox](http://greenrobot.org/objectbox/).
+Project showing usage of new mobile object database [ObjectBox](http://greenrobot.org/objectbox/).
 
 Application receives push notifications and shows them on list. Notifications can be:
 - removed
