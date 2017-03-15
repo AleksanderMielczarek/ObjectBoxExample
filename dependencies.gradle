@@ -17,7 +17,7 @@ ext {
 
     espressoCoreVersion = '2.2.2'
     junitVersion = '4.12'
-    supportLibraryVersion = '25.2.0'
+    supportLibraryVersion = '25.3.0'
     daggerVersion = '2.9'
     napkinVersion = '0.7.0'
     rxandroidVersion = '2.0.1'
